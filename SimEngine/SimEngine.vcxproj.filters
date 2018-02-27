@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Main Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{c37244a4-a081-4eea-b287-c0839689917c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\graphics">
+      <UniqueIdentifier>{0a7fdd33-809b-4415-bbcf-b0ab4305ff36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\physics">
+      <UniqueIdentifier>{bc258069-cd7a-45e0-9540-0b58b9fee688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\math">
+      <UniqueIdentifier>{cf5f4680-7780-4500-a749-4669cf9fd26e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\physics\particles">
+      <UniqueIdentifier>{25a01126-cc5d-4226-9a58-65fecdc9c623}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GraphicsHandler.h">
+      <Filter>lib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Stdafx.h">
+      <Filter>Main Source</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Main Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SimEngine.h">
+      <Filter>Main Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape2D.h">
+      <Filter>lib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>lib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager.h">
+      <Filter>lib\physics\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>lib\physics\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="GridOrganization.h">
+      <Filter>lib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SimEngine.cpp">
+      <Filter>Main Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Main Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Stdafx.cpp">
+      <Filter>Main Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsHandler.cpp">
+      <Filter>lib\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape2D.cpp">
+      <Filter>lib\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>lib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>lib\physics\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager.cpp">
+      <Filter>lib\physics\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="GridOrganization.cpp">
+      <Filter>lib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtils.cpp">
+      <Filter>Main Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="app.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
