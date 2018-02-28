@@ -24,6 +24,9 @@
     <Filter Include="lib\physics\particles">
       <UniqueIdentifier>{25a01126-cc5d-4226-9a58-65fecdc9c623}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\debug">
+      <UniqueIdentifier>{b0b159f9-064d-46e6-b369-a0f98b9ad3f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsHandler.h">
@@ -53,7 +56,15 @@
     <ClInclude Include="GridOrganization.h">
       <Filter>lib\math</Filter>
     </ClInclude>
-    <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="MathUtils.h">
+      <Filter>lib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleHandler.h">
+      <Filter>lib\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleProperties.h">
+      <Filter>lib\physics\particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimEngine.cpp">
@@ -83,8 +94,14 @@
     <ClCompile Include="GridOrganization.cpp">
       <Filter>lib\math</Filter>
     </ClCompile>
+    <ClCompile Include="ConsoleHandler.cpp">
+      <Filter>lib\debug</Filter>
+    </ClCompile>
     <ClCompile Include="MathUtils.cpp">
-      <Filter>Main Source</Filter>
+      <Filter>lib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleProperties.cpp">
+      <Filter>lib\physics\particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

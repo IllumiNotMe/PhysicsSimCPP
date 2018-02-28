@@ -2,8 +2,8 @@
 #include "Particle.h"
 
 
-Particle::Particle(double x, double y, double radius, Shape2D^ shape) :
-	x(x), y(y), _radius(radius), shape(shape)
+Particle::Particle(double x, double y, double radius, Shape2D^ shape, int id) :
+	x(x), y(y), _radius(radius), shape(shape), _uid(id)
 {
 }
 
@@ -29,6 +29,12 @@ void Particle::AddVelocity(double dx, double dy)
 {
 	velX += dx;
 	velY += dy;
+}
+
+void Particle::SetVelocity(Vector2D newVel)
+{
+	velX = newVel.x;
+	velY = newVel.y;
 }
 
 void Particle::SetVelocity(double xVel, double yVel)

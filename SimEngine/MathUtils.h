@@ -8,5 +8,7 @@
 namespace MathUtils
 {
 	std::pair<Vector2D, Vector2D> CalcExitVelocities(Particle^ particle1, Particle^ particle2);
+
+	double CalcCollisionTime(Particle^ particle1, Particle^ particle2);
 };
 
