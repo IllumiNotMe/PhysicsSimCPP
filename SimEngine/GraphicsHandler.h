@@ -12,6 +12,7 @@ private ref class GraphicsHandler
 public:
 	GraphicsHandler(Grid^);
 	Shape2D^ DrawCircle(double x, double y, double radius, Color);
+	void RemoveShape(Shape2D ^);
 private:
 	Grid^ simGrid;
 };

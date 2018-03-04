@@ -2,11 +2,10 @@
 #include "Particle.h"
 
 
-Particle::Particle(double x, double y, double radius, Shape2D^ shape, int id) :
-	x(x), y(y), _radius(radius), shape(shape), _uid(id)
+Particle::Particle(double x, double y, double radius, double mass, Shape2D^ shape, int id) :
+	x(x), y(y), _radius(radius), shape(shape), _uid(id), _mass(mass)
 {
 }
-
 
 void Particle::SetPosition(double xPos, double yPos)
 {
@@ -25,20 +24,8 @@ void Particle::TMove(double dt)
 	Move(velX * dt, velY * dt);
 }
 
-void Particle::AddVelocity(double dx, double dy)
-{
-	velX += dx;
-	velY += dy;
-}
-
 void Particle::SetVelocity(Vector2D newVel)
 {
 	velX = newVel.x;
 	velY = newVel.y;
-}
-
-void Particle::SetVelocity(double xVel, double yVel)
-{
-	velX = xVel;
-	velY = yVel;
 }

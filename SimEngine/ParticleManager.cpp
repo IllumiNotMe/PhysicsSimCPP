@@ -7,12 +7,16 @@ ParticleManager::ParticleManager()
 	
 }
 
-Particle^ ParticleManager::SpawnParticle(double x, double y, double radius, Shape2D^ shape)
+void ParticleManager::DeleteParticle(Particle ^ particle)
 {
-	Particle^ newParticle = gcnew Particle(x, y, radius, shape, currentUID);
+	managedParticles.Remove(particle);
+}
+
+Particle^ ParticleManager::SpawnParticle(double x, double y, double radius, double mass, Shape2D^ shape)
+{
+	Particle^ newParticle = gcnew Particle(x, y, radius, mass, shape, currentUID);
 
 	managedParticles.Add(newParticle);
-	managagedParticles2[currentUID] = newParticle;
 
 	currentUID += 1;
 

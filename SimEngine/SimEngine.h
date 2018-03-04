@@ -14,6 +14,8 @@
 #include "Shape2D.h"
 #include "MathUtils.h"
 #include "ParticleProperties.h"
+#include "GravitationPoint.h"
+#include "LinearForce.h"
 
 using namespace System::Windows::Controls;
 using namespace System::Windows::Shapes;
@@ -34,24 +36,44 @@ namespace SimEngine {
 	public ref class MainEngine
 	{
 	public:
+		// Instantiation
 		MainEngine(Grid^, TextBox^);
-
 		
+		// Particles
 		void SpawnParticle(ParticleProperties ^ properties);
+		void ClearAllParticles();
 
+		// Forces
+		void SpawnGravitationalPoint(double xPos, double yPos, double mass);
+		void SpawnLinearForce(double xMag, double yMag);
+		void ClearAllForces();
+
+		// Engine
 		int Render(double);
 
 	private:
-		void SpawnParticle(double x, double y, double radius, Color color);
+		// Particles
+		ParticleManager ^ particleManager;
 
+		void SpawnParticle(double x, double y, double radius, double mass, Color color);
+		void DeleteParticle(Particle ^);
+		Particle^ SpawnParticle(double x, double y, double xVel, double yVel, double radius, double mass, Color color);
+
+		// Forces
+		GEN::List<Force ^> universalForces;
+
+		void DeleteForce(Force ^);
+
+		// Main loop
+		void Update(double);
+		void UpdateParticle(Particle ^);
+		void HandleCollisions(GridOrganization ^ particleSet);
+		void ParticleLoop(Particle ^);
+		void FixParticlePosition(Particle ^);
+
+		// UI
 		Grid^ simGrid;
 		GraphicsHandler ^ graphicsHandler;
-		ParticleManager ^ particleManager;
 		ConsoleHandler ^ console;
-
-		Particle^ SpawnParticle(double x, double y, double xVel, double yVel, double radius, Color color);
-
-		void Update(double);
-		void ParticleLoop(Particle^, double);
 	};
 }

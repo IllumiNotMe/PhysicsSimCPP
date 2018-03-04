@@ -11,11 +11,10 @@ ref class ParticleManager
 public:
 	ParticleManager();
 
-	Particle^ SpawnParticle(double x, double y, double radius, Shape2D^);
-	
-	System::Collections::Generic::List<Particle^> managedParticles;
+	Particle^ SpawnParticle(double x, double y, double radius, double mass, Shape2D^);
+	void DeleteParticle(Particle ^);
 
-	Dictionary<int, Particle^> managagedParticles2;
+	System::Collections::Generic::List<Particle^> managedParticles;
 
 private:
 	int currentUID = 0;

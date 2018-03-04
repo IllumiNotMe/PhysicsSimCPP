@@ -27,6 +27,9 @@
     <Filter Include="lib\debug">
       <UniqueIdentifier>{b0b159f9-064d-46e6-b369-a0f98b9ad3f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\physics\forces">
+      <UniqueIdentifier>{2d6eb73d-5d23-4f9c-92cd-8521cd11c779}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsHandler.h">
@@ -65,6 +68,13 @@
     <ClInclude Include="ParticleProperties.h">
       <Filter>lib\physics\particles</Filter>
     </ClInclude>
+    <ClInclude Include="Force.h">
+      <Filter>lib\physics\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="GravitationPoint.h">
+      <Filter>lib\physics\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearForce.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimEngine.cpp">
@@ -102,6 +112,15 @@
     </ClCompile>
     <ClCompile Include="ParticleProperties.cpp">
       <Filter>lib\physics\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Force.cpp">
+      <Filter>lib\physics\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="GravitationPoint.cpp">
+      <Filter>lib\physics\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearForce.cpp">
+      <Filter>Main Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

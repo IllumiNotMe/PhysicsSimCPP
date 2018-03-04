@@ -28,3 +28,8 @@ Shape2D^ GraphicsHandler::DrawCircle(double x, double y, double radius, Color co
 
 	return gcnew Shape2D(x, y, radius, newCircle);
 }
+
+void GraphicsHandler::RemoveShape(Shape2D^ shape)
+{
+	simGrid->Children->Remove(shape->shape);
+}

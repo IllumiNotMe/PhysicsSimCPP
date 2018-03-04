@@ -23,8 +23,8 @@ std::pair<Vector2D, Vector2D> MathUtils::CalcExitVelocities(Particle^ p1, Partic
 	double dSum = dx * dVelX + dy * dVelY;
 	double denominator = distSqr * (p1->mass() + p2->mass());
 	double numConst = (2.0 * dSum) / denominator;
-	double numConst1 = numConst * p1->mass();
-	double numConst2 = numConst * p2->mass();
+	double numConst1 = numConst * p2->mass();
+	double numConst2 = numConst * p1->mass();
 
 	// Final answers
 	Vector2D p1FinalVel = Vector2D(

@@ -8,7 +8,8 @@ using namespace System::Windows::Shapes;
 ref class Particle
 {
 public:
-	Particle(double x, double y, double radius, Shape2D^, int id);
+	// Creation / Deletion
+	Particle(double x, double y, double radius, double mass, Shape2D^, int id);
 
 	// Position functions
 	void SetPosition(double x, double y);
@@ -16,14 +17,13 @@ public:
 	void TMove(double dt);
 
 	// Velocity
-	void SetVelocity(double x, double y);
-	void AddVelocity(double dx, double dy);
-
 	double velX;
 	double velY;
-
-	// Velocity functions
 	void SetVelocity(Vector2D);
+
+	// Acceleration
+	double accX;
+	double accY;
 
 	// Getters
 	Vector2D position() { return Vector2D(x, y); }
@@ -31,8 +31,11 @@ public:
 	double mass() { return _mass; }
 	double radius() { return _radius; }
 
+	Shape2D^ shape;
+
 	// Engine
 	bool inCollision = false;
+	double timeLeft;
 
 private:
 	// Position
@@ -41,10 +44,9 @@ private:
 
 	// Shape
 	double _radius;
-	Shape2D^ shape;
 
 	// Momentum
-	double _mass = 1;
+	double _mass;
 
 	// Engine
 	int _uid;
