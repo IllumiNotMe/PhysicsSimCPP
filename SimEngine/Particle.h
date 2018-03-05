@@ -5,50 +5,54 @@
 
 using namespace System::Windows::Shapes;
 
-ref class Particle
+namespace SimEngine
 {
-public:
-	// Creation / Deletion
-	Particle(double x, double y, double radius, double mass, Shape2D^, int id);
+	public ref class Particle
+	{
+	public:
+		// Creation / Deletion
+		Particle(double x, double y, double radius, double mass, Shape2D^, int id);
 
-	// Position functions
-	void SetPosition(double x, double y);
-	void Move(double x, double y);
-	void TMove(double dt);
+		// Position functions
+		void SetPosition(double x, double y);
+		void Move(double x, double y);
+		void TMove(double dt);
 
-	// Velocity
-	double velX;
-	double velY;
-	void SetVelocity(Vector2D);
+		// Velocity
+		double velX;
+		double velY;
+		void SetVelocity(Vector2D);
 
-	// Acceleration
-	double accX;
-	double accY;
+		// Acceleration
+		double accX;
+		double accY;
 
-	// Getters
-	Vector2D position() { return Vector2D(x, y); }
-	Vector2D velocity() { return Vector2D(velX, velY); }
-	double mass() { return _mass; }
-	double radius() { return _radius; }
+		// Getters
+		Vector2D position() { return Vector2D(x, y); }
+		Vector2D velocity() { return Vector2D(velX, velY); }
+		double mass() { return _mass; }
+		double radius() { return _radius; }
 
-	Shape2D^ shape;
+		Shape2D^ shape;
 
-	// Engine
-	bool inCollision = false;
-	double timeLeft;
+		// Engine
+		bool inCollision = false;
+		double timeLeft;
 
-private:
-	// Position
-	double x;
-	double y;
+	private:
+		// Position
+		double x;
+		double y;
 
-	// Shape
-	double _radius;
+		// Shape
+		double _radius;
 
-	// Momentum
-	double _mass;
+		// Momentum
+		double _mass;
 
-	// Engine
-	int _uid;
-};
+		// Engine
+		int _uid;
+	};
+}
+
 

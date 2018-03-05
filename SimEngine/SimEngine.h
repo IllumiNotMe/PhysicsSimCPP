@@ -16,6 +16,7 @@
 #include "ParticleProperties.h"
 #include "GravitationPoint.h"
 #include "LinearForce.h"
+#include "Particle.h"
 
 using namespace System::Windows::Controls;
 using namespace System::Windows::Shapes;
@@ -40,7 +41,7 @@ namespace SimEngine {
 		MainEngine(Grid^, TextBox^);
 		
 		// Particles
-		void SpawnParticle(ParticleProperties ^ properties);
+		Particle ^ SpawnParticle(ParticleProperties ^ properties);
 		void ClearAllParticles();
 
 		// Forces
@@ -57,7 +58,7 @@ namespace SimEngine {
 
 		void SpawnParticle(double x, double y, double radius, double mass, Color color);
 		void DeleteParticle(Particle ^);
-		Particle^ SpawnParticle(double x, double y, double xVel, double yVel, double radius, double mass, Color color);
+		Particle ^ SpawnParticle(double x, double y, double xVel, double yVel, double radius, double mass, Color color);
 
 		// Forces
 		GEN::List<Force ^> universalForces;

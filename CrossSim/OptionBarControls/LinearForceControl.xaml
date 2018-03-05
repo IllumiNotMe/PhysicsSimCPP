@@ -6,19 +6,29 @@
              xmlns:local="clr-namespace:CrossSim.OptionBarControls"
              mc:Ignorable="d"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             d:DesignHeight="25" d:DesignWidth="500">
+             d:DesignHeight="30" d:DesignWidth="500">
     <StackPanel Orientation="Horizontal">
-        <Label Content="Magnitude: "/>
-        
-        <!-- Magnitude X/Y -->
-        <Label Content="X"/>
-        <xctk:DoubleUpDown x:Name="MagXInput" Minimum="-50" Maximum="50" Value="0" Width="70"/>
-        <Separator Margin="5, 0, 5, 0"/>
-        <Label Content="Y"/>
-        <xctk:DoubleUpDown x:Name="MagYInput" Minimum="-50" Maximum="50" Value="0" Width="70"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Magnitude: " FontWeight="Bold"/>
+
+            <!-- Magnitude X/Y -->
+            <Label Content="X"/>
+            <xctk:DoubleUpDown x:Name="MagXInput" Minimum="-50" Maximum="50" Value="0" Width="70"/>
+            <Separator Margin="5, 0, 5, 0"/>
+            <Label Content="Y"/>
+            <xctk:DoubleUpDown x:Name="MagYInput" Minimum="-50" Maximum="50" Value="0" Width="70"/>
+        </StackPanel>
 
         <Separator Margin="5, 0, 5, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
-        <Label Content="Presets: "/>
-        <Button Click="GravityButton_Click" Content="Gravity"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="" Width="0"/> <!-- This label makes the height of the stack panel equal to the others -->
+            <Button x:Name="AddForceButton" FontWeight="Bold" Content="Add Force"/>
+        </StackPanel>
+        
+        <Separator Margin="5, 0, 5, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Presets: " FontWeight="Bold"/>
+            <Button Click="GravityButton_Click" Content="Gravity"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>

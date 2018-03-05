@@ -3,12 +3,12 @@
 
 using namespace System::Diagnostics;
 
-Shape2D::Shape2D(double x, double y, double radius, Shape^ shape) :
+SimEngine::Shape2D::Shape2D(double x, double y, double radius, Shape^ shape) :
 	x(x), y(y), radius(radius), shape(shape)
 {
 }
 
-void Shape2D::SetPosition(double xPos, double yPos)
+void SimEngine::Shape2D::SetPosition(double xPos, double yPos)
 {
 	Thickness pos = Thickness(0);
 	pos.Bottom = yPos;

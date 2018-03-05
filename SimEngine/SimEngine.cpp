@@ -156,7 +156,7 @@ void SimEngine::MainEngine::FixParticlePosition(Particle ^ p)
 	Public utility functions
 */
 // Particles
-void SimEngine::MainEngine::SpawnParticle(ParticleProperties ^ properties)
+Particle ^ SimEngine::MainEngine::SpawnParticle(ParticleProperties ^ properties)
 {
 	Particle ^ particle = SpawnParticle(
 		properties->xPos,
@@ -166,6 +166,8 @@ void SimEngine::MainEngine::SpawnParticle(ParticleProperties ^ properties)
 		properties->radius,
 		properties->mass,
 		properties->color);
+
+	return particle;
 }
 void SimEngine::MainEngine::SpawnParticle(double x, double y, double radius, double mass, Color color)
 {

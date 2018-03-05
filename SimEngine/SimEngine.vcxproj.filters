@@ -74,7 +74,9 @@
     <ClInclude Include="GravitationPoint.h">
       <Filter>lib\physics\forces</Filter>
     </ClInclude>
-    <ClInclude Include="LinearForce.h" />
+    <ClInclude Include="LinearForce.h">
+      <Filter>lib\physics\forces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimEngine.cpp">
@@ -120,7 +122,7 @@
       <Filter>lib\physics\forces</Filter>
     </ClCompile>
     <ClCompile Include="LinearForce.cpp">
-      <Filter>Main Source</Filter>
+      <Filter>lib\physics\forces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

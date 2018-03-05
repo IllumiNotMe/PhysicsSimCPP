@@ -6,25 +6,25 @@
              xmlns:local="clr-namespace:CrossSim.OptionBarControls"
              mc:Ignorable="d"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             d:DesignHeight="25" d:DesignWidth="801.271">
+             d:DesignHeight="30" d:DesignWidth="801.271">
     <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True">
         <!-- Mass -->
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Mass (AMU):"/>
-            <Slider x:Name="MassSlider" VerticalAlignment="Center" ValueChanged="MassSlider_ValueChanged" Width="100" Value="1" Minimum=".01" Maximum="200"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Mass (AMU):" FontWeight="Bold"/>
+            <Slider x:Name="MassSlider" VerticalAlignment="Center" ValueChanged="MassSlider_ValueChanged" Width="100" Value="1" Minimum=".1" Maximum="200"/>
             <Separator Margin="5, 0, 5, 0"/>
-            <xctk:DoubleUpDown x:Name="MassUpDown" ValueChanged="MassUpDown_ValueChanged" Value="1" Minimum=".01" Maximum="200" MinWidth="70"/>
+            <xctk:DoubleUpDown x:Name="MassUpDown" ValueChanged="MassUpDown_ValueChanged" Value="1" Minimum=".1" Maximum="200" MinWidth="70"/>
         </StackPanel>
 
         <!-- Velocity -->
         <Separator Margin="5, 0, 5, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Velocity:"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Velocity (m/s):" FontWeight="Bold"/>
             <Label Content="X"/>
-            <xctk:DoubleUpDown x:Name="VelXUpDown" ValueChanged="NumBoxUpdateVelocity" Value="0" Minimum="-100" Maximum="100" MinWidth="70"/>
+            <xctk:DoubleUpDown x:Name="VelXUpDown" ValueChanged="NumBoxUpdateVelocity" Value="0" Minimum="-1000" Maximum="1000" MinWidth="70"/>
             <Separator Margin="5, 0, 0, 0"/>
             <Label Content="Y"/>
-            <xctk:DoubleUpDown x:Name="VelYUpDown" ValueChanged="NumBoxUpdateVelocity" Value="0" Minimum="-100" Maximum="100" MinWidth="70"/>
+            <xctk:DoubleUpDown x:Name="VelYUpDown" ValueChanged="NumBoxUpdateVelocity" Value="0" Minimum="-1000" Maximum="1000" MinWidth="70"/>
             <Separator Margin="5, 0, 5, 0"/>
             <xctk:DropDownButton>
                 <xctk:DropDownButton.Content>
@@ -45,8 +45,8 @@
                             <ColumnDefinition Width="25"/>
                         </Grid.ColumnDefinitions>
 
-                        <Slider x:Name="YVelocitySlider" ValueChanged="SliderUpdateVelocity" Orientation="Vertical" Minimum="-100" Maximum="100" Grid.RowSpan="3" Grid.Column="3" Grid.Row="0" Value="0"/>
-                        <Slider x:Name="XVelocitySlider" ValueChanged="SliderUpdateVelocity" Orientation="Horizontal" Minimum="-100" Maximum="100" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="3" Value="0"/>
+                        <Slider x:Name="YVelocitySlider" ValueChanged="SliderUpdateVelocity" Orientation="Vertical" Minimum="-1000" Maximum="1000" Grid.RowSpan="3" Grid.Column="3" Grid.Row="0" Value="0"/>
+                        <Slider x:Name="XVelocitySlider" ValueChanged="SliderUpdateVelocity" Orientation="Horizontal" Minimum="-1000" Maximum="1000" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="3" Value="0"/>
 
                         <Border Grid.RowSpan="3" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Background="#7FA9A9A9"/>
                         <Ellipse x:Name="VelocityDisplayBall" Fill="Red" Width="25" Height="25" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
@@ -58,20 +58,22 @@
         
         <!-- Color -->
         <Separator Margin="5, 0, 5, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
-        <Label Content="Color: "/>
-        <Border BorderThickness="1" BorderBrush="Black">
-            <Rectangle x:Name="ColorDisplay" Width="50" Fill="Red"/>
-        </Border>
-        <Separator Margin="5, 0, 5, 0"/>
-        <xctk:DropDownButton>
-            <xctk:DropDownButton.Content>
-                <TextBlock FontFamily="Segoe MDL2 Assets" Text=" &#xE790;"/>
-            </xctk:DropDownButton.Content>
-            <xctk:DropDownButton.DropDownContent>
-                <xctk:ColorCanvas x:Name="ParticleColorPicker" SelectedColorChanged="ParticleColorPicker_SelectedColorChanged" SelectedColor="Red" UsingAlphaChannel="False"/>
-            </xctk:DropDownButton.DropDownContent>
-        </xctk:DropDownButton>
-        <Separator Margin="5, 0, 5, 0"/>
-        <CheckBox x:Name="RandomColorCheckBox" Content="Randomize" VerticalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Color: " FontWeight="Bold"/>
+            <Border BorderThickness="1" BorderBrush="Black">
+                <Rectangle x:Name="ColorDisplay" Width="50" Fill="Red"/>
+            </Border>
+            <Separator Margin="5, 0, 5, 0"/>
+            <xctk:DropDownButton>
+                <xctk:DropDownButton.Content>
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text=" &#xE790;"/>
+                </xctk:DropDownButton.Content>
+                <xctk:DropDownButton.DropDownContent>
+                    <xctk:ColorCanvas x:Name="ParticleColorPicker" SelectedColorChanged="ParticleColorPicker_SelectedColorChanged" SelectedColor="Red" UsingAlphaChannel="False"/>
+                </xctk:DropDownButton.DropDownContent>
+            </xctk:DropDownButton>
+            <Separator Margin="5, 0, 5, 0"/>
+            <CheckBox x:Name="RandomColorCheckBox" Content="Randomize" VerticalAlignment="Center"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>

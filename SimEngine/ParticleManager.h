@@ -5,6 +5,7 @@
 
 using namespace System::Windows::Shapes;
 using namespace System::Collections::Generic;
+using namespace SimEngine;
 
 ref class ParticleManager
 {

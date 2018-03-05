@@ -3,6 +3,8 @@
 #include "Particle.h"
 #include "Force.h"
 
+using namespace SimEngine;
+
 ref class GravitationPoint : public Force
 {
 public:

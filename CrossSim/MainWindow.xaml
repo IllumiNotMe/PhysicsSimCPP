@@ -8,27 +8,40 @@
         Title="MainWindow" MinHeight="350" MinWidth="525"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         d:DesignWidth="525" d:DesignHeight="350"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        SizeChanged="Window_SizeChanged">
     <Grid x:Name="MainGrid">
         <!-- Grid used for drawing simulator -->
-        <Border BorderThickness="1" Margin="30, 30, 5, 5">
+        <Border BorderThickness="1" Margin="30, 35, 5, 5">
             <Grid x:Name="SimGrid" Background="#FFD4D4D4" MouseLeftButtonDown="SimGrid_MouseLeftButtonDown"/>
         </Border>
         
         <!-- Engine Properties ChildWindow -->
-        <xctk:ChildWindow x:Name="EnginePropertiesWindow" Left="40" Top="50" WindowStyle="ToolWindow" WindowBackground="Gray" Caption="Engine Properties" CaptionFontSize="12" MinWidth="170" CloseButtonVisibility="Collapsed">
+        <xctk:ChildWindow x:Name="EnginePropertiesWindow"
+                          Left="40" Top="50"
+                          WindowStyle="ToolWindow"
+                          WindowBackground="Gray"
+                          Caption="Engine Properties"
+                          CaptionFontSize="12"
+                          MinWidth="170">
             <StackPanel Margin="5">
                 <Label DockPanel.Dock="Top" Content="Time Step (ms):"/>
                 <Separator/>
                 <DockPanel>
-                    <CheckBox x:Name="AutoTimeStepCheckBox" DockPanel.Dock="Right" Margin="5, 3, 0, 0" Content="Real Time" IsChecked="True"/>
-                    <xctk:DoubleUpDown x:Name="TimeStepEntry" Minimum="0" Value="0"/>
+                    <CheckBox x:Name="AutoTimeStepCheckBox"
+                              DockPanel.Dock="Right"
+                              Margin="5, 3, 0, 0"
+                              Content="Auto"
+                              Checked="AutoTimeStepCheckBox_Changed"
+                              Unchecked="AutoTimeStepCheckBox_Changed"
+                              IsChecked="True"/>
+                    <xctk:DoubleUpDown x:Name="TimeStepEntry" IsEnabled="False" Minimum="0" Value="0"/>
                 </DockPanel>
             </StackPanel>
         </xctk:ChildWindow>
 
         <!-- Option bar -->
-        <StackPanel x:Name="OptionBar" Orientation="Horizontal" VerticalAlignment="Top" Height="25" Margin="30, 0, 0, 0" Background="#FFE8E8E8"/>
+        <StackPanel x:Name="OptionBar" Orientation="Horizontal" VerticalAlignment="Top" Height="30" Margin="30, 0, 0, 0" Background="#FFE8E8E8"/>
 
         <!-- Toolbar -->
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="25" Background="#FFE8E8E8">
@@ -98,9 +111,52 @@
             <Expander Header="Properties" HorizontalAlignment="Right" ExpandDirection="Up" Grid.Column="1" FlowDirection="RightToLeft" MinWidth="200">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <!-- Simulator Properties -->
+                        <!-- Current elements -->
                         <Separator/>
-                        <Label Content="Simulator Properties" FontWeight="Bold"/>
+                        <Label Content="Current Elements" FontWeight="Bold"/>
+                        <Separator/>
+                        
+                        <!-- Particles -->
+                        <Expander Header="Particles" Background="#3FA9A9A9">
+                            <StackPanel>
+                                <Separator/>
+                                <ListView x:Name="ParticleListView" SelectionChanged="ParticleListView_SelectionChanged" MaxHeight="185">
+                                    <ListViewItem Content="None"/>
+                                </ListView>
+                                <DockPanel FlowDirection="LeftToRight">
+                                    <StackPanel DockPanel.Dock="Right">
+                                        <Label x:Name="ParticleMassLabel"/>
+                                        <Label x:Name="ParticleVelocityLabel"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Mass:"/>
+                                        <Label Content="Velocity:"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+                        </Expander>
+                        <Separator/>
+                        <!-- Forces -->
+                        <Expander Header="Forces" Background="#3FA9A9A9">
+                            <StackPanel>
+                                <Separator/>
+                                <ListView x:Name="ForcesListView" SelectionChanged="ForcesListView_SelectionChanged" MaxHeight="185">
+                                    <ListViewItem Content="None"/>
+                                </ListView>
+                                <DockPanel FlowDirection="LeftToRight">
+                                    <StackPanel DockPanel.Dock="Right">
+                                        <Label x:Name="ForceMagnitudeLabel"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Magnitude:"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+                        </Expander>
+
+                        <!-- Statistics -->
+                        <Separator/>
+                        <Label Content="Statistics" FontWeight="Bold"/>
                         <Separator/>
 
                         <!-- Generic -->
@@ -108,9 +164,11 @@
                             <DockPanel FlowDirection="LeftToRight">
                                 <StackPanel>
                                     <Label Content="Number of Particles: "/>
+                                    <Label Content="Window Size:"/>
                                 </StackPanel>
                                 <StackPanel HorizontalAlignment="Right">
                                     <Label x:Name="NumParticlesLabel" Content="0"/>
+                                    <Label x:Name="WindowSizeLabel" Content="0"/>
                                 </StackPanel>
                             </DockPanel>
                         </Expander>

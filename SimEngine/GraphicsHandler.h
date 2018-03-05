@@ -6,6 +6,7 @@ using namespace System::Windows::Controls;
 using namespace System::Windows::Shapes;
 using namespace System::Windows::Media;
 using namespace System::Windows;
+using namespace SimEngine;
 
 private ref class GraphicsHandler
 {

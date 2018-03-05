@@ -4,6 +4,7 @@
 
 using namespace System::Collections::Generic;
 using namespace System;
+using namespace SimEngine;
 
 namespace GEN = System::Collections::Generic;
 

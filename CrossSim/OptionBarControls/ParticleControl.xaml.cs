@@ -18,7 +18,6 @@ namespace CrossSim.OptionBarControls
 {
     public partial class ParticleControl : UserControl
     {
-        private static readonly double WPFUnitsPerMilliMeter = 96.0 / 25.4;
         private static readonly Random getrandom = new Random();
 
         public ParticleControl()
@@ -32,8 +31,8 @@ namespace CrossSim.OptionBarControls
             {
                 radius = 10,
                 color = ParticleColorPicker.SelectedColor ?? Colors.Red,
-                xVel = VelXUpDown.Value * WPFUnitsPerMilliMeter ?? 0,
-                yVel = VelYUpDown.Value * WPFUnitsPerMilliMeter ?? 0,
+                xVel = VelXUpDown.Value ?? 0,
+                yVel = VelYUpDown.Value ?? 0,
                 mass = MassUpDown.Value ?? 1
             };
 
@@ -54,7 +53,7 @@ namespace CrossSim.OptionBarControls
             if (changingVel) return;
             changingVel = true;
 
-            VelXUpDown.Value = XVelocitySlider.Value * -1.0;
+            VelXUpDown.Value = XVelocitySlider.Value;
             VelYUpDown.Value = YVelocitySlider.Value;
             UpdateVelBallPosition();
 
@@ -68,7 +67,7 @@ namespace CrossSim.OptionBarControls
 
             changingVel = true;
 
-            XVelocitySlider.Value = -1 * VelXUpDown.Value ?? 0;
+            XVelocitySlider.Value = VelXUpDown.Value ?? 0;
             YVelocitySlider.Value = VelYUpDown.Value ?? 0;
 
             if (VelocityDisplayBall != null) UpdateVelBallPosition();
@@ -79,13 +78,13 @@ namespace CrossSim.OptionBarControls
         {
             Thickness ballPosition = new Thickness(0)
             {
-                Bottom = YVelocitySlider.Value / 2,
-                Left = XVelocitySlider.Value / 2
+                Bottom = YVelocitySlider.Value / 20,
+                Left = XVelocitySlider.Value / 20
             };
 
             VelocityDisplayBall.Margin = ballPosition;
-            VelocityArrow.X1 = XVelocitySlider.Value / 4 + 37.5;
-            VelocityArrow.Y1 = (-1 * YVelocitySlider.Value / 4 + 37.5);
+            VelocityArrow.X1 = XVelocitySlider.Value / 40 + 37.5;
+            VelocityArrow.Y1 = (-1 * YVelocitySlider.Value / 40 + 37.5);
         }
 
         // Update color controls
