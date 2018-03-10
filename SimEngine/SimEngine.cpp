@@ -167,12 +167,16 @@ Particle ^ SimEngine::MainEngine::SpawnParticle(ParticleProperties ^ properties)
 		properties->mass,
 		properties->color);
 
+	particle->charge = properties->charge;
+
+	if (electroMagneticForce)
+	{
+		AttachElectroMagneticForce(particle);
+	}
+
 	return particle;
 }
-void SimEngine::MainEngine::SpawnParticle(double x, double y, double radius, double mass, Color color)
-{
-	SpawnParticle(x, y, 0, 0, radius, mass, color);
-}
+
 void SimEngine::MainEngine::ClearAllParticles()
 {
 	while (particleManager->managedParticles.Count > 0)
@@ -183,10 +187,46 @@ void SimEngine::MainEngine::ClearAllParticles()
 }
 
 // Forces
-void SimEngine::MainEngine::SpawnGravitationalPoint(double xPos, double yPos, double mass)
+void SimEngine::MainEngine::ToggleElectroMagneticForce()
 {
-	universalForces.Add(gcnew GravitationPoint(xPos, yPos, mass));
+	if (electroMagneticForce)
+		// Turn off force
+	{
+		GEN::List<Force ^> forcesToDetach;
+
+		// Get all electro magnetic forces
+		for each (Force ^ force in universalForces)
+		{
+			if (force->fType() == (int)ForceType::ElectroMagnetic)
+			{
+				forcesToDetach.Add(force);
+			}
+		}
+
+		// Delete forces
+		for each (Force ^ force in forcesToDetach)
+		{
+			universalForces.Remove(force);
+		}
+
+		electroMagneticForce = false;
+	}
+	else
+		// Turn on force
+	{
+		for each (Particle ^ p in particleManager->managedParticles)
+		{
+			AttachElectroMagneticForce(p);
+		}
+
+		electroMagneticForce = true;
+	}
 }
+void SimEngine::MainEngine::AttachElectroMagneticForce(Particle ^ particle)
+{
+	universalForces.Add(gcnew ElectroMagnetic(particle));
+}
+
 void SimEngine::MainEngine::SpawnLinearForce(double xMag, double yMag)
 {
 	universalForces.Add(gcnew LinearForce(xMag, yMag));

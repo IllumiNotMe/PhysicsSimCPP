@@ -71,11 +71,14 @@
     <ClInclude Include="Force.h">
       <Filter>lib\physics\forces</Filter>
     </ClInclude>
-    <ClInclude Include="GravitationPoint.h">
-      <Filter>lib\physics\forces</Filter>
-    </ClInclude>
     <ClInclude Include="LinearForce.h">
       <Filter>lib\physics\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectroMagnetic.h">
+      <Filter>lib\physics\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>lib\physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -118,11 +121,14 @@
     <ClCompile Include="Force.cpp">
       <Filter>lib\physics\forces</Filter>
     </ClCompile>
-    <ClCompile Include="GravitationPoint.cpp">
-      <Filter>lib\physics\forces</Filter>
-    </ClCompile>
     <ClCompile Include="LinearForce.cpp">
       <Filter>lib\physics\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectroMagnetic.cpp">
+      <Filter>lib\physics\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>lib\physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -95,6 +95,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="OptionBarControls\RigidBodyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OptionBarControls\LinearForceControl.xaml.cs">
@@ -102,6 +106,9 @@
     </Compile>
     <Compile Include="OptionBarControls\ParticleControl.xaml.cs">
       <DependentUpon>ParticleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OptionBarControls\RigidBodyControl.xaml.cs">
+      <DependentUpon>RigidBodyControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

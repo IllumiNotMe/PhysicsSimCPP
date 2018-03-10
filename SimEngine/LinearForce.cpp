@@ -5,6 +5,7 @@
 LinearForce::LinearForce(double xMag, double yMag) :
 	xMag(xMag), yMag(yMag)
 {
+	
 }
 
 void LinearForce::ApplyOn(Particle ^ p)

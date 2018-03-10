@@ -27,6 +27,9 @@ namespace SimEngine
 		double accX;
 		double accY;
 
+		// Chemistry
+		short charge;
+
 		// Getters
 		Vector2D position() { return Vector2D(x, y); }
 		Vector2D velocity() { return Vector2D(velX, velY); }

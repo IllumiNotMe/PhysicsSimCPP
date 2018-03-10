@@ -33,7 +33,8 @@ namespace CrossSim.OptionBarControls
                 color = ParticleColorPicker.SelectedColor ?? Colors.Red,
                 xVel = VelXUpDown.Value ?? 0,
                 yVel = VelYUpDown.Value ?? 0,
-                mass = MassUpDown.Value ?? 1
+                mass = MassUpDown.Value ?? 1,
+                charge = (short)(ChargeUpDown.Value ?? 0)
             };
 
             if(RandomColorCheckBox.IsChecked ?? false)

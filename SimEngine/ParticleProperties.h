@@ -23,5 +23,8 @@ namespace SimEngine
 
 		// Material properties
 		double mass = 1;
+
+		// Chemical Properties
+		short charge = 1;
 	};
 }

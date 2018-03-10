@@ -41,32 +41,6 @@ std::pair<Vector2D, Vector2D> MathUtils::CalcExitVelocities(Particle^ p1, Partic
 
 double MathUtils::CalcCollisionTime(Particle^ p1, Particle^ p2)
 {
-	/*
-	a = p1.x
-    b = p1.y
-
-    c = p2.x
-    d = p2.y
-
-    w = p1.velocity_x
-    x = p2.velocity_x
-
-    y = p1.velocity_y
-    z = p2.velocity_y
-
-    r = p1.r
-    s = p2.r
-
-    discrim = (2*a*w-2*a*x+2*b*y-2*b*z-2*c*w+2*c*x-2*d*y+2*d*z)**2-4*(w**2-2*w*x+x**2+y**2-2*y*z+z**2)*(a**2-2*a*c+b**2-2*b*d+c**2+d**2-r**2-2*r*s-s*2)
-    # If discrim is negative or 0 -> no collision
-    if discrim <= 0:
-        return None
-
-    t = (-1/2 * math.sqrt(discrim)-a*w+a*x-b*y+b*z+c*w-c*x+d*y-d*z)/(w**2-2*w*x+x**2+y**2-2*y*z+z**2)
-
-    return t
-	*/
-
 	// Define constants for ease of use
 	double a = p1->position().x;
 	double b = p1->position().y;
@@ -91,4 +65,28 @@ double MathUtils::CalcCollisionTime(Particle^ p1, Particle^ p2)
 	double collTime = (-0.5 * sqrt(discrim) - a*w + a*x - b*y + b*z + c*w - c*x + d*y - d*z) / (pow(w, 2.0) - 2.0*w*x + pow(x, 2.0) + pow(y, 2.0) - 2.0*y*z + pow(z, 2.0));
 
 	return collTime;
+}
+
+Vector2D MathUtils::ParticleToRGColl(Particle ^ p1, RigidBody ^ rigidbody)
+{
+	// Calculate differences in position
+	double dx = rigidbody->position().x - p1->position().x;
+	double dy = rigidbody->position().y - p1->position().y;
+
+	// distance between particle and rigidbody squared
+	double distSqr = pow(dx, 2.0) + pow(dy, 2.0);
+
+	// Check if actually colliding before continuing calculations
+	bool areColliding = pow(p1->radius() + rigidbody->radius(), 2.0) > distSqr;
+
+	if (!areColliding) return Vector2D::NullVector();
+
+	double numConst = 2.0 * (dx * p1->velocity().x + dy * p1->velocity().y) / distSqr;
+
+	Vector2D finalVel = Vector2D(
+		p1->velocity().x - numConst * dx,
+		p1->velocity().y - numConst * dy
+	);
+
+	return finalVel;
 }

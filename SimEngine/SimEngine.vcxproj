@@ -151,7 +151,7 @@
     <ClInclude Include="ConsoleHandler.h" />
     <ClInclude Include="Force.h" />
     <ClInclude Include="GraphicsHandler.h" />
-    <ClInclude Include="GravitationPoint.h" />
+    <ClInclude Include="ElectroMagnetic.h" />
     <ClInclude Include="GridOrganization.h" />
     <ClInclude Include="LinearForce.h" />
     <ClInclude Include="MathUtils.h" />
@@ -159,6 +159,7 @@
     <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="ParticleProperties.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Shape2D.h" />
     <ClInclude Include="SimEngine.h" />
     <ClInclude Include="Stdafx.h" />
@@ -169,13 +170,14 @@
     <ClCompile Include="ConsoleHandler.cpp" />
     <ClCompile Include="Force.cpp" />
     <ClCompile Include="GraphicsHandler.cpp" />
-    <ClCompile Include="GravitationPoint.cpp" />
+    <ClCompile Include="ElectroMagnetic.cpp" />
     <ClCompile Include="GridOrganization.cpp" />
     <ClCompile Include="LinearForce.cpp" />
     <ClCompile Include="MathUtils.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleManager.cpp" />
     <ClCompile Include="ParticleProperties.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Shape2D.cpp" />
     <ClCompile Include="SimEngine.cpp" />
     <ClCompile Include="Stdafx.cpp">

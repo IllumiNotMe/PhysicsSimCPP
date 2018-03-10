@@ -22,6 +22,7 @@ namespace CrossSim
     {
         ParticleControl,
         LinearForceControl,
+        RigidBodyControl,
         None
     }
 
@@ -32,28 +33,6 @@ namespace CrossSim
         private Dictionary<OptionBarTypes, UserControl> optionBarControls = new Dictionary<OptionBarTypes, UserControl>();
         private List<Particle> currentParticles = new List<Particle>();
         private List<Tuple<double, double>> currentForces = new List<Tuple<double, double>>();
-
-        /*
-         * Physics constants
-        */
-
-        //Boltzmann constant: k
-        private static readonly double boltzConst = 1.38066 * Math.Pow(10, -23);
-
-        // Gas constant: R
-        private static readonly double gasConst = 8.314472;
-
-        // Avagodro's number
-        private static readonly double avogadroNum = 6.022 * Math.Pow(10, 23);
-
-        // AMU to kilograms
-        private static readonly double AMUToKilo = 1.6605 * Math.Pow(10, -27);
-
-        // Physics properties to keep track of
-        private double totalEnergy = 0;
-        private double totalMomentum = 0;
-        private double totalMass = 0;
-        private double windowVolume = 0;
 
         // Initialize program
         public MainWindow()
@@ -67,6 +46,8 @@ namespace CrossSim
             // Add custom toolbar controls
             optionBarControls[OptionBarTypes.ParticleControl] = new OptionBarControls.ParticleControl();
 
+            optionBarControls[OptionBarTypes.RigidBodyControl] = new OptionBarControls.RigidBodyControl();
+
             OptionBarControls.LinearForceControl linearForceControl = new OptionBarControls.LinearForceControl();
             linearForceControl.AddForceButton.Click += (s, e) => { SpawnLinearForce(); };
             optionBarControls[OptionBarTypes.LinearForceControl] = linearForceControl;
@@ -74,13 +55,9 @@ namespace CrossSim
             // Initialize physics engine
             simEngine = new MainEngine(SimGrid, ConsoleTextBox);
 
-            // Update physics info
-            UpdatePhysicsProps();
-
             // Select default tool
             SelectTool(ParticleToolButton);
         }
-
 
         /*
          * Physics functions
@@ -125,35 +102,22 @@ namespace CrossSim
 
             // Add particle to list view
             if (((ListViewItem)ParticleListView.Items[0]).Content as string == "None")
-            {
                 ParticleListView.Items.RemoveAt(0);
-            }
 
-            StackPanel itemContent = new StackPanel() { Orientation = Orientation.Horizontal };
+            DockPanel itemContent = new DockPanel() { MinWidth = 180 };
             itemContent.Children.Add(new TextBlock() { Text = "Particle " + currentParticles.Count.ToString() });
-            itemContent.Children.Add(new Ellipse()
+            Ellipse display = new Ellipse()
             {
                 Fill = new SolidColorBrush(pProperties.color),
                 Width = 10,
                 Height = 10,
-                Margin = new Thickness(5, 0, 5, 0)
-            });
+                Margin = new Thickness(5, 0, 5, 0),
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+            DockPanel.SetDock(display, Dock.Left);
+            itemContent.Children.Add(display);
 
             ParticleListView.Items.Add(new ListViewItem() { Content = itemContent });
-
-            // Update physics + generic properties
-            totalMass += pProperties.mass;
-
-            // Velocity magnitude in meters per second
-            double velMagnitudeSqr = Math.Pow(pProperties.xVel, 2) + Math.Pow(pProperties.yVel, 2);
-            // Convert from AMU
-            double massInKilograms = pProperties.mass * AMUToKilo;
-
-            totalEnergy += massInKilograms * velMagnitudeSqr / 2.0;
-
-            totalMomentum += massInKilograms * Math.Sqrt(velMagnitudeSqr);
-
-            UpdatePhysicsProps();
 
             // Edit pProperties for engine and spawn particle
             pProperties.xVel *= 0.1;
@@ -161,6 +125,9 @@ namespace CrossSim
 
             Particle newParticle = simEngine.SpawnParticle(pProperties);
             currentParticles.Add(newParticle);
+
+            // Update generic info panel
+            NumParticlesLabel.Content = currentParticles.Count;
         }
 
         // Forces
@@ -181,6 +148,13 @@ namespace CrossSim
             ForcesListView.Items.Add(new ListViewItem() { Content=itemContent });
 
             currentForces.Add(linearForce);
+        }
+
+        // Rigidbody
+        private void SpawnRigidBody(Point spawnPos)
+        {
+            double xPos = spawnPos.X;
+            double yPos = SimGrid.ActualHeight - spawnPos.Y;
         }
 
         /*
@@ -231,42 +205,10 @@ namespace CrossSim
                 ForcesListView.Items.RemoveAt(0);
             ForcesListView.Items.Add(new ListViewItem() { Content = "None" });
 
+            NumParticlesLabel.Content = 0;
+
             currentParticles = new List<Particle>();
             currentForces = new List<Tuple<double, double>>();
-
-            totalEnergy = 0;
-            totalMomentum = 0;
-            totalMass = 0;
-            UpdatePhysicsProps();
-        }
-
-        // Update Physics Properties info
-        private void UpdatePhysicsProps()
-        {
-            int numParticles = currentParticles.Count + 1;
-
-            NumParticlesLabel.Content = String.Format("{0}", numParticles);
-            TotalEnergyLabel.Content = String.Format("{0:0.000E0} J", totalEnergy);
-            TotalMomentumLabel.Content = String.Format("{0:0.000E0} kg*m/s", totalMomentum);
-
-            // Equation for temperature from average kinetic energy: KE = (3/2) * k * T
-            // Solve for T: T = (2 * KE) / (3 * k)
-            double avgKE = totalEnergy / numParticles;
-            double temp = (2.0 * avgKE) / (3.0 * boltzConst);
-
-            if (Double.IsNaN(temp)) temp = 0;
-
-            TemperatureLabel.Content = String.Format("{0:0##.00000} C", temp - 273.15);
-
-            double mols = numParticles / avogadroNum;
-
-            // Ideal gas law: PV = nRT where pressure is in Pascals (N*m^-2)
-            // Pressure = (nRT) / V
-            double pressure = (mols * gasConst * temp) / windowVolume;
-
-            if (double.IsNaN(pressure)) pressure = 0;
-
-            PressureLabel.Content = String.Format("{0:0.00000E0} Pa", pressure);
         }
 
         // Toolbar logic
@@ -308,6 +250,9 @@ namespace CrossSim
             else if (LinearFToolButton.IsChecked ?? false)
                 barType = OptionBarTypes.LinearForceControl;
 
+            //else if (RigidBodyToolButton.IsChecked ?? false)
+            //    barType = OptionBarTypes.RigidBodyControl;
+
             if (barType != OptionBarTypes.None)
                 OptionBar.Children.Add(optionBarControls[barType]);
         }
@@ -347,11 +292,8 @@ namespace CrossSim
             // Converts from grid units to meters
             double windowHeight = e.NewSize.Height * 10;
             double windowWidth = e.NewSize.Width * 10;
-            windowVolume = windowWidth * windowHeight;
 
             WindowSizeLabel.Content = String.Format("{0:0.##}m x {1:0.##}m", windowWidth, windowHeight);
-
-            UpdatePhysicsProps();
         }
 
         // Update particle info list
@@ -362,6 +304,7 @@ namespace CrossSim
 
             ParticleMassLabel.Content = String.Format("{0:0.##}", selectedParticle.mass());
             ParticleVelocityLabel.Content = String.Format("{0:0.##}x, {1:0.##}y", selectedParticle.velX * 10.0, selectedParticle.velY * 10.0);
+            ParticleChargeLabel.Content = selectedParticle.charge;
         }
         private void ParticleListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -389,6 +332,12 @@ namespace CrossSim
             if (fIndex == -1 || currentForces.Count == 0) return;
 
             ForceMagnitudeLabel.Content = String.Format("{0:0.##}x, {1:0.##}y", currentForces[fIndex].Item1, currentForces[fIndex].Item2);
+        }
+
+        // Toggles magnetic force on button click
+        private void ToggleMagneticForce(object sender, RoutedEventArgs e)
+        {
+            simEngine.ToggleElectroMagneticForce();
         }
     }
 }

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CrossSim.OptionBarControls"
              mc:Ignorable="d"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             d:DesignHeight="30" d:DesignWidth="801.271">
+             d:DesignHeight="30" d:DesignWidth="1001.271">
     <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True">
         <!-- Mass -->
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -54,6 +54,19 @@
                     </Grid>
                 </xctk:DropDownButton.DropDownContent>
             </xctk:DropDownButton>
+        </StackPanel>
+
+        <!-- Charge -->
+        <Separator Margin="5, 0, 5, 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Charge (" FontWeight="Bold"/>
+                    <TextBlock Text="e" FontWeight="Bold" FontStyle="Italic"/>
+                    <TextBlock Text="): " FontWeight="Bold"/>
+                </StackPanel>
+            </Label>
+            <xctk:IntegerUpDown x:Name="ChargeUpDown" Minimum="-10" Maximum="10" Value="0" Width="60"/>
         </StackPanel>
         
         <!-- Color -->

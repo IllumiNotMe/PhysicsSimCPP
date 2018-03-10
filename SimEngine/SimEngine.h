@@ -6,6 +6,7 @@
 #include <ctime>
 #include <cmath>
 #include <utility>
+#include <typeinfo>
 
 #include "GraphicsHandler.h"
 #include "ParticleManager.h"
@@ -14,7 +15,7 @@
 #include "Shape2D.h"
 #include "MathUtils.h"
 #include "ParticleProperties.h"
-#include "GravitationPoint.h"
+#include "ElectroMagnetic.h"
 #include "LinearForce.h"
 #include "Particle.h"
 
@@ -42,11 +43,16 @@ namespace SimEngine {
 		
 		// Particles
 		Particle ^ SpawnParticle(ParticleProperties ^ properties);
+		void SpawnRigidBody(double xPos, double yPos) {}
+
 		void ClearAllParticles();
 
 		// Forces
-		void SpawnGravitationalPoint(double xPos, double yPos, double mass);
+		void ToggleElectroMagneticForce();
+		void AttachElectroMagneticForce(Particle ^);
+
 		void SpawnLinearForce(double xMag, double yMag);
+
 		void ClearAllForces();
 
 		// Engine
@@ -56,12 +62,13 @@ namespace SimEngine {
 		// Particles
 		ParticleManager ^ particleManager;
 
-		void SpawnParticle(double x, double y, double radius, double mass, Color color);
 		void DeleteParticle(Particle ^);
 		Particle ^ SpawnParticle(double x, double y, double xVel, double yVel, double radius, double mass, Color color);
 
 		// Forces
 		GEN::List<Force ^> universalForces;
+
+		bool electroMagneticForce = true;
 
 		void DeleteForce(Force ^);
 
