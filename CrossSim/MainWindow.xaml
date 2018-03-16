@@ -26,7 +26,8 @@
                           MinWidth="170">
             <StackPanel Margin="5">
                 <Label DockPanel.Dock="Top" Content="Time Step (ms):"/>
-                <Separator/>
+                
+                <!-- Time step -->
                 <DockPanel>
                     <CheckBox x:Name="AutoTimeStepCheckBox"
                               DockPanel.Dock="Right"
@@ -37,11 +38,39 @@
                               IsChecked="True"/>
                     <xctk:DoubleUpDown x:Name="TimeStepEntry" IsEnabled="False" Minimum="0" Value="0"/>
                 </DockPanel>
+
+                <Separator Margin="0, 10, 0, 10"/>
+
+                <!-- Magnetic force -->
+                <CheckBox Content="Magnetic Force" IsChecked="True" Checked="ToggleMagneticForce" Unchecked="ToggleMagneticForce" HorizontalAlignment="Left"/>
+
+                <Separator Margin="0, 10, 0, 10"/>
+                
+                <!-- Particle Trails -->
+                <CheckBox Content="Particle Trails" x:Name="ParticleTrailsToggle" Checked="ParticleTrailsToggle_Changed" Unchecked="ParticleTrailsToggle_Changed"/>
+                <DockPanel IsEnabled="False" x:Name="ParticleTrailsControl">
+                    <Label VerticalAlignment="Center" Width="80">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Frames: "/>
+                            <TextBlock x:Name="TrailLenLabel" Text="0"/>
+                        </StackPanel>
+                    </Label>
+                    <Slider Value="60" ValueChanged="TrailLenSlider_ValueChanged" Maximum="600" x:Name="ParticleTrailsSlider" VerticalAlignment="Center"/>
+                </DockPanel> 
             </StackPanel>
         </xctk:ChildWindow>
 
         <!-- Option bar -->
-        <StackPanel x:Name="OptionBar" Orientation="Horizontal" VerticalAlignment="Top" Height="30" Margin="30, 0, 0, 0" Background="#FFE8E8E8"/>
+        <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                      VerticalAlignment="Top"
+                      Height="30"
+                      Margin="30, 0, 0, 0"
+                      Background="#FFE8E8E8"
+                      x:Name="OptionBarScrollViewer">
+            <StackPanel x:Name="OptionBar" Orientation="Horizontal" Margin="5, 0, 5, 0"/>
+        </ScrollViewer>
 
         <!-- Toolbar -->
         <DockPanel HorizontalAlignment="Left" Width="25" Background="#FFE8E8E8">
@@ -70,15 +99,6 @@
                     ToolTip="Change Engine Settings"
                     Margin="2, 0, 3, 0"/>
 
-                <Separator Margin="0, 5, 0, 5"/>
-
-                <ToggleButton Click="ToggleMagneticForce" FontFamily="Segoe MDL2 Assets"
-                          Content="&#xE7AD;"
-                          Height="20"
-                          ToolTip="Toggle Electromagnetic Force"
-                          Margin="2, 0, 3, 0"
-                          IsChecked="True"/>
-
                 <Separator Margin="0, 5, 0, 20"/>
             </StackPanel>
 
@@ -89,16 +109,6 @@
                        ToolTip="Tools"/>
 
                 <Separator Margin="0, 0, 0, 5"/>
-                
-                <!-- Rigidbody Tool -->
-                <!--
-                <ToggleButton x:Name="RigidBodyToolButton"
-                              Click="ToolSelected"
-                              Height="20"
-                              Content="&#xE25B;" FontFamily="Segoe MDL2 Assets"
-                              ToolTip="Create Rigidbody"
-                              Margin="2, 0, 3, 0"/>
-                -->
 
                 <!-- Particle Tool -->
                 <ToggleButton x:Name="ParticleToolButton"

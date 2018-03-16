@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Interop;
 using System.Diagnostics;
 using SimEngine;
 
@@ -33,6 +34,9 @@ namespace CrossSim
         private Dictionary<OptionBarTypes, UserControl> optionBarControls = new Dictionary<OptionBarTypes, UserControl>();
         private List<Particle> currentParticles = new List<Particle>();
         private List<Tuple<double, double>> currentForces = new List<Tuple<double, double>>();
+        private List<ParticleTrail> trailList = new List<ParticleTrail>();
+
+        private List<LineTrail> lineTrails = new List<LineTrail>();
 
         // Initialize program
         public MainWindow()
@@ -41,6 +45,7 @@ namespace CrossSim
 
             // Add render event to be used by physics engine
             CompositionTarget.Rendering += RenderGraphics;
+
             KeyDown += HandleKeyPress;
 
             // Add custom toolbar controls
@@ -89,6 +94,34 @@ namespace CrossSim
                 simEngine.Render(timeStep);
 
                 UpdateParticleInfoDisplay();
+
+                if (false)
+                    RenderFadingTrail();
+
+                if (ParticleTrailsToggle.IsChecked ?? false)
+                    RenderLineTrail();
+            }
+        }
+
+        private void RenderFadingTrail()
+        {
+            int deadTrails = 0;
+            foreach (ParticleTrail pTrail in trailList)
+            {
+                if (!pTrail.Update()) deadTrails += 1;
+            }
+            trailList.RemoveRange(0, deadTrails);
+
+            foreach (Particle p in currentParticles)
+            {
+                trailList.Add(new ParticleTrail(p.shape.shape, SimGrid, 2.0));
+            }
+        }
+        private void RenderLineTrail()
+        {
+            foreach (LineTrail trail in lineTrails)
+            {
+                trail.Update();
             }
         }
 
@@ -128,6 +161,8 @@ namespace CrossSim
 
             // Update generic info panel
             NumParticlesLabel.Content = currentParticles.Count;
+
+            lineTrails.Add(new LineTrail(newParticle.shape.shape, SimGrid, (int)ParticleTrailsSlider.Value));
         }
 
         // Forces
@@ -204,6 +239,12 @@ namespace CrossSim
             while (ForcesListView.Items.Count > 0)
                 ForcesListView.Items.RemoveAt(0);
             ForcesListView.Items.Add(new ListViewItem() { Content = "None" });
+
+            while (lineTrails.Count > 0)
+            {
+                SimGrid.Children.Remove(lineTrails[0].trail);
+                lineTrails.RemoveAt(0);
+            }
 
             NumParticlesLabel.Content = 0;
 
@@ -337,7 +378,54 @@ namespace CrossSim
         // Toggles magnetic force on button click
         private void ToggleMagneticForce(object sender, RoutedEventArgs e)
         {
-            simEngine.ToggleElectroMagneticForce();
+            if (simEngine != null)
+                simEngine.ToggleElectroMagneticForce();
+        }
+
+        // Allow scrolling for option bar
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scrollViewer = OptionBarScrollViewer;
+
+            if (scrollViewer == null)
+                return;
+
+            if (e.Delta < 0)
+                scrollViewer.LineRight();
+            else
+                scrollViewer.LineLeft();
+
+            e.Handled = true;
+        }
+
+        // Trail length controls
+        private void TrailLenSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int trailLen = (int)e.NewValue;
+
+            TrailLenLabel.Text = trailLen.ToString();
+
+            foreach (LineTrail trail in lineTrails)
+            {
+                trail.numFrames = trailLen;
+                trail.trail.Points = new PointCollection();
+                trail.longEnough = false;
+            }
+        }
+        private void ParticleTrailsToggle_Changed(object sender, RoutedEventArgs e)
+        {
+            bool enabled = ParticleTrailsToggle.IsChecked ?? false;
+
+            ParticleTrailsControl.IsEnabled = enabled;
+
+            if (!enabled)
+            {
+                foreach (LineTrail trail in lineTrails)
+                {
+                    trail.trail.Points = new PointCollection();
+                    trail.longEnough = false;
+                }
+            }
         }
     }
 }
